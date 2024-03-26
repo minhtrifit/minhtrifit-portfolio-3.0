@@ -1,4 +1,14 @@
 import { ProjectType } from "@/types";
+import {
+  NEXT_JS,
+  REACT_JS,
+  NODE_JS,
+  EXPRESS_JS,
+  NEST_JS,
+  POSTGRE_SQL,
+  SPRING_BOOT,
+  MY_SQL,
+} from "@/constants/technical";
 
 export const PROJECT_LIST: ProjectType[] = [
   {
@@ -13,8 +23,16 @@ export const PROJECT_LIST: ProjectType[] = [
       "https://res.cloudinary.com/dn2h31tcb/image/upload/v1711428953/project-assets/discord-clone/3_f0dnzp.png",
       "https://res.cloudinary.com/dn2h31tcb/image/upload/v1711428954/project-assets/discord-clone/4_hdpuif.png",
     ],
+    technicals: [NEXT_JS, NEST_JS, POSTGRE_SQL],
     demo: "https://youtu.be/L8ixcX2tIdk",
     released: "19th Feb 2024",
+    features: [
+      "Authentication & Authorization: NextAuth email credentials, Github oauth, role delegation (user, admin).",
+      "Friend feature: Real-time send friend request & friend notification.",
+      "Message: Real-time send direct message (text, image, file type).",
+      "Server: Real-time send channel message (text, image, file type) & server joining.",
+      "Admin page management.",
+    ],
   },
   {
     id: 2,
@@ -27,8 +45,17 @@ export const PROJECT_LIST: ProjectType[] = [
       "https://res.cloudinary.com/dn2h31tcb/image/upload/v1711431145/project-assets/spotify-clone/3_rysijk.png",
       "https://res.cloudinary.com/dn2h31tcb/image/upload/v1711431202/project-assets/spotify-clone/4_o4j5f8.png",
     ],
+    technicals: [REACT_JS, SPRING_BOOT, MY_SQL],
     demo: "https://youtu.be/iLBWCdZQNpQ",
     released: "22th Dec 2023",
+    features: [
+      "Authentication & Authorization: Json web token, role delegation (user, admin).",
+      "Audio Interact: Listen single, create (admin), edit (admin), delete (admin), search by name.",
+      `Album Interact: Listen album collection, skip to next or previous audio, create (admin, Google Drive Cloud
+        storage), edit (admin), delete (admin).`,
+      `Playlist Interact: Listen playlist collection, skip to next or previous audio, create (interactive UI), modify
+      playlist (add or remove single audio), delete (admin).`,
+    ],
   },
   {
     id: 3,
@@ -42,8 +69,16 @@ export const PROJECT_LIST: ProjectType[] = [
       "https://res.cloudinary.com/dn2h31tcb/image/upload/v1711432776/project-assets/slearninglab/3_kpusik.png",
       "https://res.cloudinary.com/dn2h31tcb/image/upload/v1711432783/project-assets/slearninglab/4_tks14y.png",
     ],
+    technicals: [REACT_JS, NEST_JS, POSTGRE_SQL],
     demo: "https://youtu.be/g9WHplySekY",
     released: "27th Aug 2023",
+    features: [
+      "Authentication & Authorization: Json web token, role delegation (student, teacher).",
+      "Real-time Notification: Request join class (student, socketIO), accept join class (teacher, socketIO).",
+      `Classroom teacher: Create classroom, create exam (multiple choice format, Cloudinary image storage),
+      real-time chat (socketIO), upload document.`,
+      `Classroom student: Exam practice, view exam result, real-time chat (socketIO), download document.`,
+    ],
   },
   {
     id: 5,
@@ -57,7 +92,14 @@ export const PROJECT_LIST: ProjectType[] = [
       "https://res.cloudinary.com/dn2h31tcb/image/upload/v1711435127/project-assets/vietnam-driving-license/3_ijgzbz.png",
       "https://res.cloudinary.com/dn2h31tcb/image/upload/v1711435126/project-assets/vietnam-driving-license/4_llmjhf.png",
     ],
+    technicals: [NODE_JS, EXPRESS_JS, POSTGRE_SQL],
     demo: "https://youtu.be/JDg3TORhMEE",
     released: "12th Feb 2023",
+    features: [
+      "Authentication & Authorization: Passport local.",
+      "Document page: View exam question & answer by vehicle type.",
+      `Exam page: Do multiple choice exam by verhicle type with VietNam ministry of transport's format.`,
+      `History page: View exam result history.`,
+    ],
   },
 ];

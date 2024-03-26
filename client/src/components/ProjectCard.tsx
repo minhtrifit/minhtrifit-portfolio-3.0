@@ -18,7 +18,11 @@ const ProjectCard = (props: PropType) => {
       <Link href={`/project/${project?.id}`}>
         <Image
           className="w-[100%] h-auto rounded-t-md"
-          src={project?.images ? project?.images[0] : ""}
+          src={
+            project?.images && project?.images[0]
+              ? project?.images[0]
+              : "/assets/no-image.png"
+          }
           priority
           sizes="100vw"
           width="0"
