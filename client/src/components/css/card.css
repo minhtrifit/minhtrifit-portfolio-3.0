@@ -1,0 +1,9 @@
+.card-description {
+  height: 60px;
+  text-align: center;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Number of lines to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
