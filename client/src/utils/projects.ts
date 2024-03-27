@@ -81,6 +81,28 @@ export const PROJECT_LIST: ProjectType[] = [
     ],
   },
   {
+    id: 4,
+    name: "Figure Shopping App",
+    description: "Shopping & Forum Website for trading figure.",
+    github: "https://github.com/minhtrifit/pern-figure-world-client",
+    images: [
+      "https://res.cloudinary.com/dn2h31tcb/image/upload/v1711519394/project-assets/figure-world/1_uxrsss.png",
+      "https://res.cloudinary.com/dn2h31tcb/image/upload/v1711437140/project-assets/figure-world/2_hhuoza.png",
+      "https://res.cloudinary.com/dn2h31tcb/image/upload/v1711437140/project-assets/figure-world/3_mu0ul6.png",
+      "https://res.cloudinary.com/dn2h31tcb/image/upload/v1711437132/project-assets/figure-world/4_tl3dvq.png",
+    ],
+    technicals: [REACT_JS, NODE_JS, EXPRESS_JS, POSTGRE_SQL],
+    demo: "https://youtu.be/rg2LySuBm0I",
+    released: "10th May 2023",
+    features: [
+      "Authentication & Authorization: Firebase oauth.",
+      "Home page: View figure product list.",
+      `Product page: Figure product information.`,
+      `Cart page: Add to cart & payment product.`,
+      `Forum page: Review & feedback figure trading.`,
+    ],
+  },
+  {
     id: 5,
     name: "VietNam Driving License",
     description:
