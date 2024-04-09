@@ -3,6 +3,7 @@ import { getAllProjects } from "@/lib/action.api";
 
 import AllProjects from "@/components/AllProjects";
 import Loading from "@/components/Loading";
+import Empty from "@/components/Empty";
 
 // import { PROJECT_LIST } from "@/utils/projects";
 
@@ -16,7 +17,13 @@ const page = async () => {
         minhtrifit open source project list.
       </p>
       <Suspense fallback={<Loading />}>
-        <AllProjects projects={data} />
+        {!data ? (
+          <div className="my-10">
+            <Empty />
+          </div>
+        ) : (
+          <AllProjects projects={data} />
+        )}
       </Suspense>
     </div>
   );

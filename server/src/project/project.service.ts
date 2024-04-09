@@ -10,8 +10,6 @@ export class ProjectService {
   }
 
   getProjectById(id: number | string) {
-    console.log(id);
-
     const project = PROJECT_LIST.filter((project) => {
       return project.id === Number(id);
     })[0];

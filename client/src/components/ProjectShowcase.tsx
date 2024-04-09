@@ -11,6 +11,7 @@ import { ArrowRight } from "lucide-react";
 import { getAllProjects } from "@/lib/action.api";
 
 import ProjectCard from "./ProjectCard";
+import Empty from "./Empty";
 
 // import { PROJECT_LIST } from "@/utils/projects";
 import { ProjectType } from "@/types";
@@ -30,22 +31,28 @@ const ProjectShowcase = async () => {
           </p>
         </Link>
       </div>
-      <Carousel className="mx-auto mt-6 w-[80%] lg:w-[100%]">
-        <CarouselContent>
-          {data?.map((project: ProjectType) => {
-            return (
-              <CarouselItem
-                key={uuidv4()}
-                className="pb-3 md:basis-1/2 lg:basis-1/3"
-              >
-                <ProjectCard project={project} />
-              </CarouselItem>
-            );
-          })}
-        </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
-      </Carousel>
+      {!data ? (
+        <div className="my-10">
+          <Empty />
+        </div>
+      ) : (
+        <Carousel className="mx-auto mt-6 w-[80%] lg:w-[100%]">
+          <CarouselContent>
+            {data?.map((project: ProjectType) => {
+              return (
+                <CarouselItem
+                  key={uuidv4()}
+                  className="pb-3 md:basis-1/2 lg:basis-1/3"
+                >
+                  <ProjectCard project={project} />
+                </CarouselItem>
+              );
+            })}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
+      )}
     </div>
   );
 };
