@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { v4 as uuidv4 } from "uuid";
-import { Calendar, Github } from "lucide-react";
+import { Calendar, Github, Youtube } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -73,10 +73,15 @@ const ProjectView = (props: PropType) => {
             })}
           </ul>
         </div>
-        <div className="mt-5">
+        <div className="mt-5 flex items-center gap-3">
           <Link href={project?.github ? project?.github : ""} target="_blank">
             <Button>
               <Github className="mr-2 h-4 w-4" /> Source code
+            </Button>
+          </Link>
+          <Link href={project?.demo ? project?.demo : ""} target="_blank">
+            <Button variant="destructive">
+              <Youtube className="mr-2 h-4 w-4" /> Demo
             </Button>
           </Link>
         </div>

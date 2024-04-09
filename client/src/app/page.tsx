@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import ProjectShowcase from "@/components/ProjectShowcase";
 
-export default function Home() {
+const Home = async () => {
   return (
     <div className="mx-auto max-w-screen-lg p-6">
       <section className="flex gap-5 flex-wrap items-center justify-center md:justify-between">
@@ -70,4 +70,6 @@ export default function Home() {
       </section>
     </div>
   );
-}
+};
+
+export default Home;

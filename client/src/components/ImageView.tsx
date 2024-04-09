@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { v4 as uuidv4 } from "uuid";
 
@@ -22,6 +22,10 @@ const ImageView = (props: PropType) => {
   const [activeImage, setActiveImage] = useState<string>(
     images[0] ? images[0] : "/assets/no-image.png"
   );
+
+  useEffect(() => {
+    if (images[0]) setActiveImage(images[0]);
+  }, [images]);
 
   return (
     <div>

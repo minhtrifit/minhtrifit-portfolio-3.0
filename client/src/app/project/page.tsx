@@ -1,11 +1,14 @@
 import { Suspense } from "react";
+import { getAllProjects } from "@/lib/action.api";
 
 import AllProjects from "@/components/AllProjects";
 import Loading from "@/components/Loading";
 
-import { PROJECT_LIST } from "@/utils/projects";
+// import { PROJECT_LIST } from "@/utils/projects";
 
-const page = () => {
+const page = async () => {
+  const data = await getAllProjects();
+
   return (
     <div>
       <h1 className="mt-10 text-3xl font-bold text-center">All Projects</h1>
@@ -13,7 +16,7 @@ const page = () => {
         minhtrifit open source project list.
       </p>
       <Suspense fallback={<Loading />}>
-        <AllProjects projects={PROJECT_LIST} />
+        <AllProjects projects={data} />
       </Suspense>
     </div>
   );

@@ -8,13 +8,16 @@ import {
 } from "@/components/ui/carousel";
 import { v4 as uuidv4 } from "uuid";
 import { ArrowRight } from "lucide-react";
+import { getAllProjects } from "@/lib/action.api";
 
 import ProjectCard from "./ProjectCard";
 
-import { PROJECT_LIST } from "@/utils/projects";
+// import { PROJECT_LIST } from "@/utils/projects";
 import { ProjectType } from "@/types";
 
-const ProjectShowcase = () => {
+const ProjectShowcase = async () => {
+  const data = await getAllProjects();
+
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -29,7 +32,7 @@ const ProjectShowcase = () => {
       </div>
       <Carousel className="mx-auto mt-6 w-[80%] lg:w-[100%]">
         <CarouselContent>
-          {PROJECT_LIST?.map((project: ProjectType) => {
+          {data?.map((project: ProjectType) => {
             return (
               <CarouselItem
                 key={uuidv4()}
