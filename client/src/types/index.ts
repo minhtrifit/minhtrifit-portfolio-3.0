@@ -14,4 +14,5 @@ export interface ProjectType {
   technicals?: TechnicalType[];
   features?: string[];
   released?: string;
+  categories?: string[];
 }

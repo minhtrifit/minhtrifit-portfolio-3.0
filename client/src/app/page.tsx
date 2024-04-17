@@ -9,7 +9,7 @@ const Home = async () => {
     <div className="mx-auto max-w-screen-lg p-6">
       <section className="flex gap-5 flex-wrap items-center justify-center md:justify-between">
         <div>
-          <h1 className="flex items-center gap-2 text-3xl font-bold">
+          <h1 className="flex flex-wrap items-center gap-2 text-3xl font-bold">
             Hi there, I'm
             <span className="text-primary-blue">minhtrifit</span> 👋
           </h1>

@@ -9,6 +9,7 @@ import {
   SPRING_BOOT,
   MY_SQL,
 } from '../constants/technical';
+import { Categories } from 'src/constants/categories';
 
 export const PROJECT_LIST: ProjectType[] = [
   {
@@ -33,6 +34,7 @@ export const PROJECT_LIST: ProjectType[] = [
       'Server: Real-time send channel message (text, image, file type) & server joining.',
       'Admin page management.',
     ],
+    categories: [Categories.enterprise, Categories.clone],
   },
   {
     id: 2,
@@ -56,6 +58,7 @@ export const PROJECT_LIST: ProjectType[] = [
       `Playlist Interact: Listen playlist collection, skip to next or previous audio, create (interactive UI), modify
       playlist (add or remove single audio), delete (admin).`,
     ],
+    categories: [Categories.enterprise, Categories.clone],
   },
   {
     id: 3,
@@ -79,6 +82,7 @@ export const PROJECT_LIST: ProjectType[] = [
       real-time chat (socketIO), upload document.`,
       `Classroom student: Exam practice, view exam result, real-time chat (socketIO), download document.`,
     ],
+    categories: [Categories.enterprise, Categories.education],
   },
   {
     id: 4,
@@ -101,6 +105,7 @@ export const PROJECT_LIST: ProjectType[] = [
       `Cart page: Add to cart & payment product.`,
       `Forum page: Review & feedback figure trading.`,
     ],
+    categories: [Categories.enterprise, Categories.ecommerce],
   },
   {
     id: 5,
@@ -123,5 +128,6 @@ export const PROJECT_LIST: ProjectType[] = [
       `Exam page: Do multiple choice exam by verhicle type with VietNam ministry of transport's format.`,
       `History page: View exam result history.`,
     ],
+    categories: [Categories.enterprise, Categories.education],
   },
 ];

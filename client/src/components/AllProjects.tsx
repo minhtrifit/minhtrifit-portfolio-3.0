@@ -8,8 +8,10 @@ import {
   PaginationLink,
 } from "@/components/ui/pagination";
 import { v4 as uuidv4 } from "uuid";
+import { arrayRange } from "@/helpers";
 
 import useSize from "@/hooks/useSize";
+import { useCategoryStore } from "@/lib/store";
 
 import ProjectCard from "./ProjectCard";
 
@@ -22,24 +24,23 @@ interface PropType {
 const AllProjects = (props: PropType) => {
   const { projects } = props;
 
-  // const ITEMS_PER_PAGE = 9;
+  const ITEMS_PER_PAGE = 9;
+  const MOBILE_ITEMS_PER_PAGE = 3;
 
   const windowsize = useSize();
+  const category: string = useCategoryStore((state) => state.category);
 
-  const [itemsPerPage, setItemsPerPage] = useState<number>(9);
+  const [projectSrc, setProjectSrc] = useState<ProjectType[]>(
+    projects ? projects : []
+  );
+  const [itemsPerPage, setItemsPerPage] = useState<number>(ITEMS_PER_PAGE);
   const [pagination, setPagination] = useState<number[]>([]);
   const [avtivePag, setActivePag] = useState<number>(1);
   const [projectsPerPage, setProjectsPerPage] = useState<ProjectType[]>([]);
 
-  const arrayRange = (start: number, stop: number, step: number) =>
-    Array.from(
-      { length: (stop - start) / step + 1 },
-      (value, index) => start + index * step
-    );
-
   const handleCountPages = () => {
-    const pageCount = Math.ceil(projects?.length / itemsPerPage);
-    console.log("PAGE COUNT:", pageCount);
+    const pageCount = Math.ceil(projectSrc?.length / itemsPerPage);
+    // console.log("PAGE COUNT:", pageCount);
     setPagination(arrayRange(1, pageCount, 1));
   };
 
@@ -47,25 +48,39 @@ const AllProjects = (props: PropType) => {
     const begin = (n - 1) * itemsPerPage;
     const end = (n - 1) * itemsPerPage + itemsPerPage;
 
-    const items = projects?.slice(begin, end);
+    const items = projectSrc?.slice(begin, end);
     setProjectsPerPage(items);
   };
 
   useEffect(() => {
     handleCountPages();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [itemsPerPage]);
+  }, [projectSrc, itemsPerPage]);
 
   useEffect(() => {
     handleGetProjectsPerPage(avtivePag);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [avtivePag, itemsPerPage]);
+  }, [projectSrc, avtivePag, itemsPerPage]);
 
   useEffect(() => {
-    if (windowsize[0] <= 640) setItemsPerPage(3);
-    else setItemsPerPage(9);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (windowsize[0] <= 640) setItemsPerPage(MOBILE_ITEMS_PER_PAGE);
+    else setItemsPerPage(ITEMS_PER_PAGE);
   }, [windowsize]);
+
+  useEffect(() => {
+    if (category === "") {
+      setProjectSrc(projects);
+    } else {
+      const filterProject = projects?.filter((project) => {
+        const cateLow = project?.categories?.map((item) => item.toLowerCase());
+        return cateLow?.includes(category);
+      });
+
+      setProjectSrc(filterProject);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [category]);
 
   return (
     <div className="mt-10">

@@ -15,4 +15,9 @@ export class ProjectController {
   getProjectById(@Param('id') id: string | number) {
     return this.projectService.getProjectById(+id);
   }
+
+  @Get('/categories')
+  getAllCategories() {
+    return this.projectService.getAllCategories();
+  }
 }
