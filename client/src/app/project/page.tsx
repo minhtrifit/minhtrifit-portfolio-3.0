@@ -5,6 +5,7 @@ import AllProjects from "@/components/AllProjects";
 import Loading from "@/components/Loading";
 import Empty from "@/components/Empty";
 import { CateComboBox } from "@/components/CateComboBox";
+import ProjectTitle from "@/components/ProjectTitle";
 
 const page = async () => {
   const data = await getAllProjects();
@@ -15,7 +16,7 @@ const page = async () => {
       <div className="mt-5">
         <CateComboBox categories={categories} />
       </div>
-      <h1 className="mt-10 text-3xl font-bold text-center">All Projects</h1>
+      <ProjectTitle />
       <p className="mt-3 text-gray-500 dark:text-gray-200 text-center">
         minhtrifit open source project list.
       </p>

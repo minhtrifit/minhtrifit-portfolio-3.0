@@ -30,6 +30,7 @@ const ProjectView = (props: PropType) => {
             <h1 className="text-3xl font-bold">{project?.name}</h1>
             <p className="text-sm text-gray-500">{project?.description}</p>
             <div className="flex gap-2 items-center">
+              <p>Released</p>
               <Calendar />
               <p>{project?.released}</p>
             </div>
@@ -38,7 +39,7 @@ const ProjectView = (props: PropType) => {
             </p>
           </div>
           <div className="my-5 w-[100%] h-[1px] bg-zinc-300 dark:bg-primary-blue"></div>
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-10">
             <div className="flex flex-col gap-5">
               <h1 className="text-xl font-bold">Technical Stack</h1>
               <div className="flex flex-wrap gap-5 items-center">

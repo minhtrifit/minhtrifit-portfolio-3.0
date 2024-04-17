@@ -16,3 +16,17 @@ export interface ProjectType {
   released?: string;
   categories?: string[];
 }
+
+export interface UserType {
+  id?: string;
+  name?: string;
+  username?: string;
+  avatar?: string;
+}
+
+export interface CommentType {
+  user?: UserType;
+  projectId?: string | number;
+  title?: string;
+  timestamp?: string;
+}
