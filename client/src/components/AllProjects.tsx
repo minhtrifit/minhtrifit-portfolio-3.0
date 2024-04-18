@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from "uuid";
 import { arrayRange } from "@/helpers";
 
 import useSize from "@/hooks/useSize";
-import { useCategoryStore } from "@/lib/store";
+import { useCategoryStore, useSearchStore } from "@/lib/store";
 
 import ProjectCard from "./ProjectCard";
 
@@ -29,6 +29,8 @@ const AllProjects = (props: PropType) => {
 
   const windowsize = useSize();
   const category: string = useCategoryStore((state) => state.category);
+  const searchValue: string = useSearchStore((state) => state.searchValue);
+  const searchType: string = useSearchStore((state) => state.type);
 
   const [projectSrc, setProjectSrc] = useState<ProjectType[]>(
     projects ? projects : []
@@ -82,15 +84,27 @@ const AllProjects = (props: PropType) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category]);
 
+  useEffect(() => {
+    if (searchValue === "all" && searchType === "project") {
+      setProjectSrc(projects);
+    } else if (searchValue !== "" && searchType === "project") {
+      const filterProject = projects?.filter((project) => {
+        return project?.name
+          ?.toLocaleLowerCase()
+          ?.includes(searchValue?.toLocaleLowerCase());
+      });
+
+      setProjectSrc(filterProject);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchValue]);
+
   return (
     <div className="mt-10">
-      <div className="flex flex-wrap gap-3">
+      <div className="grid grid sm:grid-cols-2 md:grid-cols-3 gap-5">
         {projectsPerPage?.map((project: ProjectType) => {
-          return (
-            <div key={uuidv4()} className="pb-3 w-[100%] sm:w-[300px]">
-              <ProjectCard project={project} />
-            </div>
-          );
+          return <ProjectCard key={uuidv4()} project={project} />;
         })}
       </div>
       <Pagination>

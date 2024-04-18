@@ -6,6 +6,7 @@ import Loading from "@/components/Loading";
 import Empty from "@/components/Empty";
 import { CateComboBox } from "@/components/CateComboBox";
 import ProjectTitle from "@/components/ProjectTitle";
+import SearchBox from "@/components/SearchBox";
 
 const page = async () => {
   const data = await getAllProjects();
@@ -13,8 +14,9 @@ const page = async () => {
 
   return (
     <div>
-      <div className="mt-5">
+      <div className="mt-10 flex flex-wrap gap-5 items-center justify-between">
         <CateComboBox categories={categories} />
+        <SearchBox searchType="project" />
       </div>
       <ProjectTitle />
       <p className="mt-3 text-gray-500 dark:text-gray-200 text-center">
