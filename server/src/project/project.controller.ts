@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { createNewProject } from './dto/create-project.dto';
+import { createNewComment } from './dto/create-comment.dto';
 
 @Controller('project')
 export class ProjectController {
@@ -45,5 +46,15 @@ export class ProjectController {
   @Delete('/delete/:id')
   async deleteProjectById(@Param('id') id: string) {
     return this.projectService.deleteProjectById(id);
+  }
+
+  @Get('/comments/:id')
+  getAllCommentsByProjectId(@Param('id') id: string) {
+    return this.projectService.getAllCommentsByProjectId(id);
+  }
+
+  @Post('/comment/create')
+  createNewComment(@Body() comment: createNewComment) {
+    return this.projectService.createNewComment(comment);
   }
 }

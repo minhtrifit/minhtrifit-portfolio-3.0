@@ -9,6 +9,8 @@ import { CommentType, UserType } from "@/types";
 
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { useParams } from "next/navigation";
+import { createNewComment } from "@/lib/action.api";
 
 interface Proptype {
   comments: CommentType[];
@@ -19,6 +21,7 @@ const CommentBox = (props: Proptype) => {
   const { comments, setComments } = props;
 
   const { user } = useUser();
+  const params = useParams();
 
   const [value, setValue] = useState<string>("");
 
@@ -30,7 +33,17 @@ const CommentBox = (props: Proptype) => {
       return;
     }
 
-    if (value && user && user?.fullName) {
+    if (user && value === "") {
+      toast.error("Comment can not by empty");
+      return;
+    }
+
+    if (
+      value !== "" &&
+      user &&
+      user?.fullName &&
+      typeof params?.id === "string"
+    ) {
       const userData: UserType = {
         id: user?.id,
         email: user?.primaryEmailAddress?.emailAddress,
@@ -41,12 +54,15 @@ const CommentBox = (props: Proptype) => {
       };
 
       const newComment: CommentType = {
+        projectId: params?.id,
         user: userData,
         title: value,
         timestamp: getCurrentTime(),
       };
 
-      setComments([...comments, newComment]);
+      const newCommentRes: CommentType = await createNewComment(newComment);
+
+      setComments([...comments, newCommentRes]);
     }
     setValue("");
   };

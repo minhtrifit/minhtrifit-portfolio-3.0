@@ -19,7 +19,7 @@ const CommentItem = (props: PropType) => {
               : "https://github.com/shadcn.png"
           }`}
         />
-        <AvatarFallback>{comment?.user?.username?.charAt(0)}</AvatarFallback>
+        <AvatarFallback>{comment?.user?.name?.charAt(0)}</AvatarFallback>
       </Avatar>
       <div className="w-full flex flex-col gap-2">
         <div className="flex items-center justify-between">

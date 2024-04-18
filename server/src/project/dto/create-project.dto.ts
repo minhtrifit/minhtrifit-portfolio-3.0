@@ -38,6 +38,7 @@ export class createNewProject {
   @ArrayMinSize(1)
   images: string[];
 
+  @IsNotEmpty()
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => TechnicalTypeValidator)

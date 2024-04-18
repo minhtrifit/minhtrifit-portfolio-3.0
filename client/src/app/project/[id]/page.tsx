@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { CommentType, ProjectType } from "@/types";
 
-import { getProjectById } from "@/lib/action.api";
+import { getAllCommentsByProjectId, getProjectById } from "@/lib/action.api";
 
 import ImageView from "@/components/ImageView";
 import ProjectView from "@/components/ProjectView";
@@ -26,9 +26,15 @@ const page = () => {
     setProject(data);
   };
 
+  const handleGetAllCommentsByProjectId = async (id: string | number) => {
+    const data = await getAllCommentsByProjectId(id);
+    setComments(data);
+  };
+
   useEffect(() => {
     if (params?.id && typeof params?.id === "string") {
       handleGetProjectById(params?.id);
+      handleGetAllCommentsByProjectId(params?.id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
