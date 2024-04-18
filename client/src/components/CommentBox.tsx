@@ -1,6 +1,8 @@
 "use client";
 
 import { Dispatch, FormEvent, SetStateAction, useState } from "react";
+import { useUser } from "@clerk/clerk-react";
+import { toast } from "react-toastify";
 import { getCurrentTime } from "@/helpers";
 
 import { CommentType, UserType } from "@/types";
@@ -16,19 +18,30 @@ interface Proptype {
 const CommentBox = (props: Proptype) => {
   const { comments, setComments } = props;
 
+  const { user } = useUser();
+
   const [value, setValue] = useState<string>("");
 
-  const handleSendComment = (e: FormEvent<HTMLFormElement>) => {
+  const handleSendComment = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (value) {
-      const MockUserData: UserType = {
-        name: "minhtrifit",
-        username: "minhtrifit-admin",
+    if (!user) {
+      toast.error("Please sign in to comment!");
+      return;
+    }
+
+    if (value && user && user?.fullName) {
+      const userData: UserType = {
+        id: user?.id,
+        email: user?.primaryEmailAddress?.emailAddress,
+        name: user?.fullName,
+        avatar: user?.imageUrl
+          ? user?.imageUrl
+          : "https://github.com/shadcn.png",
       };
 
       const newComment: CommentType = {
-        user: MockUserData,
+        user: userData,
         title: value,
         timestamp: getCurrentTime(),
       };

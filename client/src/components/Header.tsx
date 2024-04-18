@@ -1,10 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
+import { auth } from "@clerk/nextjs";
 
 import ThemeToggle from "./ThemeToggle";
 import Nav from "./Nav";
+import AuthControl from "./AuthControl";
 
-const Header = () => {
+const Header = async () => {
+  const { userId } = auth();
+
   return (
     <div className="mx-auto max-w-screen-lg p-6">
       <div className="flex items-center justify-between">
@@ -24,6 +28,7 @@ const Header = () => {
         </Link>
         <div className="flex items-center gap-5">
           <ThemeToggle />
+          <AuthControl userId={userId} />
           <Nav />
         </div>
       </div>
