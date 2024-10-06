@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/carousel";
 import { v4 as uuidv4 } from "uuid";
 import { ArrowRight } from "lucide-react";
-import { getAllProjects } from "@/lib/action.api";
+import { getAllProjectsByReleased } from "@/lib/action.api";
 
 import ProjectCard from "./ProjectCard";
 import Empty from "./Empty";
@@ -17,7 +17,7 @@ import Empty from "./Empty";
 import { ProjectType } from "@/types";
 
 const ProjectShowcase = async () => {
-  const data = await getAllProjects();
+  const data = await getAllProjectsByReleased("desc");
 
   return (
     <div>

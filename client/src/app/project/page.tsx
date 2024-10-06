@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { getAllCategories, getAllProjects } from "@/lib/action.api";
+import { getAllCategories, getAllProjectsByReleased } from "@/lib/action.api";
 
 import AllProjects from "@/components/AllProjects";
 import Loading from "@/components/Loading";
@@ -9,7 +9,7 @@ import ProjectTitle from "@/components/ProjectTitle";
 import SearchBox from "@/components/SearchBox";
 
 const page = async () => {
-  const data = await getAllProjects();
+  const data = await getAllProjectsByReleased("desc");
   const categories = await getAllCategories();
 
   return (

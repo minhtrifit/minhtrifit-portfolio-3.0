@@ -20,6 +20,11 @@ export class ProjectController {
     return this.projectService.getAllProjects();
   }
 
+  @Get('/all/:by')
+  getAllProjectsByReleased(@Param('by') by: string) {
+    return this.projectService.getAllProjectsByReleased(by);
+  }
+
   @Post('/create')
   createNewProject(@Body() project: createNewProject) {
     return this.projectService.createNewProject(project);

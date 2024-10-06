@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
+import { getProjectById } from "@/lib/action.api";
 
 import {
   Breadcrumb,
@@ -29,23 +30,35 @@ const Direction = () => {
     return url;
   };
 
-  useEffect(() => {
+  const handleGetDirectionItems = async () => {
     const paths = pathname.split("/");
     const items = [];
 
     for (let i = 0; i < paths?.length; ++i) {
       const item = {
-        name:
-          paths[i] === ""
-            ? "Home"
-            : paths[i].charAt(0).toUpperCase() + paths[i].slice(1),
-        url: i === 0 ? "/" : handleGetItemUrl(paths, i),
+        name: "",
+        url: "",
       };
+
+      if (paths[i] === "") item.name = "Home";
+      else if (paths[i - 1] === "project") {
+        const data = await getProjectById(paths[2]);
+        item.name = data?.name
+          ? data?.name
+          : paths[i].charAt(0).toUpperCase() + paths[i].slice(1);
+      } else item.name = paths[i].charAt(0).toUpperCase() + paths[i].slice(1);
+
+      if (i === 0) item.url = "/";
+      else item.url = handleGetItemUrl(paths, i);
 
       items.push(item);
     }
 
     setDirectItems(items);
+  };
+
+  useEffect(() => {
+    handleGetDirectionItems();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 

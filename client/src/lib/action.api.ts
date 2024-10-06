@@ -15,6 +15,18 @@ export const getAllProjects = async () => {
   }
 };
 
+export const getAllProjectsByReleased = async (by: "asc" | "desc") => {
+  try {
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/project/all/${by}`
+    );
+    return res.data;
+  } catch (error: any) {
+    console.log("API CALL ERROR:", error?.response?.data);
+    return error?.response?.data;
+  }
+};
+
 export const getProjectById = async (id: number | string) => {
   try {
     const res = await axios.get(

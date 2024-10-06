@@ -47,3 +47,21 @@ export const MY_SQL: TechnicalType = {
   logo: '/technicals/mysql.png',
   url: 'https://www.mysql.com',
 };
+
+export const FIREBASE: TechnicalType = {
+  name: 'Firebase',
+  logo: '/technicals/firebase.png',
+  url: 'https://firebase.google.com/docs',
+};
+
+export const SUPABASE: TechnicalType = {
+  name: 'Supabase',
+  logo: '/technicals/supabase.png',
+  url: 'https://supabase.com',
+};
+
+export const TAILWIND_CSS: TechnicalType = {
+  name: 'Tailwind CSS',
+  logo: '/technicals/tailwindcss.png',
+  url: 'https://tailwindcss.com',
+};

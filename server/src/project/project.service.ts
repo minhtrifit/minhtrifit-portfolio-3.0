@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { createNewProject } from './dto/create-project.dto';
@@ -17,9 +21,41 @@ export class ProjectService {
     @InjectModel(Comment.name) private commentModel: Model<Comment>,
   ) {}
 
+  parseDate(dateString) {
+    const [day, month, year] = dateString.split('/');
+    return new Date(`${year}-${month}-${day}`);
+  }
+
+  sortByReleaseDate(arr, order = 'asc') {
+    return arr.sort((a, b) => {
+      const dateA: any = this.parseDate(a.released);
+      const dateB: any = this.parseDate(b.released);
+
+      if (order === 'asc') {
+        return dateA - dateB;
+      } else if (order === 'desc') {
+        return dateB - dateA;
+      }
+    });
+  }
+
   async getAllProjects() {
     const projects = await this.projectModel.find();
     return projects;
+  }
+
+  async getAllProjectsByReleased(by: string) {
+    if (by !== 'asc' && by !== 'desc') {
+      throw new BadRequestException({
+        statusCode: 400,
+        message: 'Invalid request data',
+        error: 'Bad Request',
+      });
+    }
+
+    const projects = await this.projectModel.find();
+    const projectsByReleased = this.sortByReleaseDate(projects, by); // or desc
+    return projectsByReleased;
   }
 
   async createNewProject(project: createNewProject) {

@@ -81,7 +81,7 @@ const ImageView = (props: PropType) => {
                   }}
                 >
                   <Image
-                    className={`w-[200px] h-auto hover:opacity-100 hover:cursor-grab hover:translate-y-[-5px] ${
+                    className={`w-[200px] h-[80px] object-cover hover:opacity-100 hover:cursor-grab hover:translate-y-[-5px] ${
                       activeImage === image
                         ? "opacity-100  border-2 border-primary-blue"
                         : "opacity-40"
