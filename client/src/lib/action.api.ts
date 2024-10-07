@@ -1,7 +1,8 @@
 "use server";
 
-import { CommentType } from "@/types";
+import { revalidatePath } from "next/cache";
 import axios from "axios";
+import { CommentType, ProjectType } from "@/types";
 
 export const getAllProjects = async () => {
   try {
@@ -71,6 +72,37 @@ export const createNewComment = async (comment: CommentType) => {
     );
 
     return res.data;
+  } catch (error: any) {
+    console.log("API CALL ERROR:", error?.response?.data);
+    return error?.response?.data;
+  }
+};
+
+export const createNewProject = async (project: ProjectType) => {
+  try {
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/project/create`,
+      project
+    );
+
+    revalidatePath("/project");
+
+    return { message: "Create project successfully", data: res.data };
+  } catch (error: any) {
+    console.log("API CALL ERROR:", error?.response?.data);
+    return error?.response?.data;
+  }
+};
+
+export const deleteProjectById = async (id: string | number) => {
+  try {
+    const res = await axios.delete(
+      `${process.env.NEXT_PUBLIC_API_URL}/project/delete/${id}`
+    );
+
+    revalidatePath("/project");
+
+    return { message: "Delete project successfully", data: res.data };
   } catch (error: any) {
     console.log("API CALL ERROR:", error?.response?.data);
     return error?.response?.data;

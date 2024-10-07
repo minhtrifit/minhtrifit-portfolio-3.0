@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
-import { Calendar as CalendarIcon } from "lucide-react";
+import { Calendar as CalendarIcon, CirclePlus, Trash } from "lucide-react";
 import { format } from "date-fns";
 
 import { Button } from "@/components/ui/button";
@@ -37,8 +37,9 @@ import VideoPlayer from "./VideoPlayer";
 
 import { cn } from "@/lib/utils";
 import { TECHNICALS } from "@/constants/technical";
-import { TechnicalType } from "@/types";
+import { ProjectType, TechnicalType } from "@/types";
 import { formatDate } from "@/lib";
+import { createNewProject } from "@/lib/action.api";
 
 interface PropType {
   categoriesData: string[];
@@ -56,6 +57,9 @@ const FormSchema = z.object({
     .max(100, {
       message: "Description must not be longer than 100 characters.",
     }),
+  released: z.date({
+    required_error: "A date of release is required.",
+  }),
   github: z
     .string()
     .min(5, {
@@ -64,11 +68,9 @@ const FormSchema = z.object({
     .max(100, {
       message: "Github must not be longer than 100 characters.",
     }),
+  images: z.array(z.string()).min(1, "At least one image is required"),
   demo: z.string().min(3, {
     message: "Project demo must be at least 3 characters.",
-  }),
-  released: z.date({
-    required_error: "A date of release is required.",
   }),
   technicals: z
     .array(
@@ -82,6 +84,7 @@ const FormSchema = z.object({
   categories: z
     .array(z.string())
     .min(1, "Please select at least one category."),
+  features: z.array(z.string()).min(1, "At least one feature is required"),
 });
 
 const CreateProjectForm = (props: PropType) => {
@@ -103,6 +106,7 @@ const CreateProjectForm = (props: PropType) => {
       name: "",
       description: "",
       github: "",
+      images: [""],
       demo: "",
       technicals: [],
       categories: [],
@@ -126,19 +130,43 @@ const CreateProjectForm = (props: PropType) => {
     );
   };
 
+  const {
+    fields: imageFields,
+    append: addImage,
+    remove: removeImage,
+  } = useFieldArray<any>({
+    control: form.control,
+    name: "images",
+  });
+
+  const {
+    fields: featureFields,
+    append: addfeature,
+    remove: removefeature,
+  } = useFieldArray<any>({
+    control: form.control,
+    name: "features",
+  });
+
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     // Format date of release
     const formattedDate: string = formatDate(data.released);
-    const newProject = { ...data, released: formattedDate };
+    const newProject: ProjectType = { ...data, released: formattedDate };
 
-    console.log("New Project Data:", newProject);
-    toast.success("Create project successfully");
+    const res = await createNewProject(newProject);
+    const { message } = res;
+    console.log("New Project Data:", res);
+
+    if (message === "Create project successfully") {
+      toast.success(message);
+    } else toast.error("Create project failed");
 
     // Reset the form fields after a successful submission
     form.reset();
     setSelectedTechnicals([]);
     setSelectedCategories([]);
     setDemoLink("");
+    form.reset({ images: [], features: [] });
   };
 
   return (
@@ -174,41 +202,6 @@ const CreateProjectForm = (props: PropType) => {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="github"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Github</FormLabel>
-              <FormControl>
-                <Input placeholder="Project github link" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="demo"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Demo</FormLabel>
-              <FormControl>
-                <Input
-                  value={demoLink}
-                  onChange={(e) => {
-                    setDemoLink(e.target.value);
-                    field.onChange(e.target.value);
-                  }}
-                  placeholder="Project demo (recommend youtube link)"
-                  // {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        {demoLink !== "" && <VideoPlayer src={demoLink} />}
         <FormField
           control={form.control}
           name="released"
@@ -250,6 +243,71 @@ const CreateProjectForm = (props: PropType) => {
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="github"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Github</FormLabel>
+              <FormControl>
+                <Input placeholder="Project github link" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <div className="flex flex-col gap-y-5">
+          <FormLabel>Image URL</FormLabel>
+          {imageFields.map((field, index) => (
+            <div key={field.id} className="flex items-end space-x-4">
+              <FormField
+                control={form.control}
+                name={`images.${index}`}
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormControl>
+                      <Input placeholder="Enter image URL" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button
+                variant="destructive"
+                type="button"
+                onClick={() => removeImage(index)}
+              >
+                <Trash size={20} />
+              </Button>
+            </div>
+          ))}
+          <Button type="button" onClick={() => addImage("")}>
+            <CirclePlus className="mr-2 h-4 w-4" />
+            Add Image URL
+          </Button>
+        </div>
+        <FormField
+          control={form.control}
+          name="demo"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Demo</FormLabel>
+              <FormControl>
+                <Input
+                  value={demoLink}
+                  onChange={(e) => {
+                    setDemoLink(e.target.value);
+                    field.onChange(e.target.value);
+                  }}
+                  placeholder="Project demo (recommend youtube link)"
+                  // {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        {demoLink !== "" && <VideoPlayer src={demoLink} />}
         <FormField
           control={form.control}
           name="technicals"
@@ -326,6 +384,36 @@ const CreateProjectForm = (props: PropType) => {
             </FormItem>
           )}
         />
+        <div className="flex flex-col gap-y-5">
+          <FormLabel>Features</FormLabel>
+          {featureFields.map((field, index) => (
+            <div key={field.id} className="flex items-end space-x-4">
+              <FormField
+                control={form.control}
+                name={`features.${index}`}
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormControl>
+                      <Input placeholder="Enter feature" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button
+                variant="destructive"
+                type="button"
+                onClick={() => removefeature(index)}
+              >
+                <Trash size={20} />
+              </Button>
+            </div>
+          ))}
+          <Button type="button" onClick={() => addfeature("")}>
+            <CirclePlus className="mr-2 h-4 w-4" />
+            Add Feature
+          </Button>
+        </div>
         <Button type="submit">Create</Button>
       </form>
     </Form>

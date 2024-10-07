@@ -121,7 +121,7 @@ const AllProjects = (props: PropType) => {
           <div>
             <Link href="/create/project">
               <Button>
-                <CirclePlus className="mr-2 h-4 w-4" /> Add new project
+                <CirclePlus className="mr-2 h-4 w-4" /> Create new project
               </Button>
             </Link>
           </div>
