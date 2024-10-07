@@ -49,6 +49,10 @@ const Direction = () => {
       } else item.name = paths[i].charAt(0).toUpperCase() + paths[i].slice(1);
 
       if (i === 0) item.url = "/";
+      else if (paths[i] === "create" && paths[i + 1] === "project")
+        item.url = "/project";
+      else if (paths[i] === "create" && paths[i + 1] === "blog")
+        item.url = "/blog";
       else item.url = handleGetItemUrl(paths, i);
 
       items.push(item);

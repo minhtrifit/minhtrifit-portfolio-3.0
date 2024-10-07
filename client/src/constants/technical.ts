@@ -77,3 +77,19 @@ export const CSS: TechnicalType = {
   logo: "/technicals/css.png",
   url: "https://www.w3schools.com/css",
 };
+
+export const TECHNICALS = [
+  NEXT_JS,
+  REACT_JS,
+  SPRING_BOOT,
+  NODE_JS,
+  EXPRESS_JS,
+  NEST_JS,
+  POSTGRE_SQL,
+  MY_SQL,
+  FIREBASE,
+  SUPABASE,
+  TAILWIND_CSS,
+  HTML,
+  CSS,
+];
