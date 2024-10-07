@@ -1,21 +1,24 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { CirclePlus } from "lucide-react";
 import {
   Pagination,
   PaginationContent,
   PaginationItem,
   PaginationLink,
 } from "@/components/ui/pagination";
+import { Button } from "@/components/ui/button";
 import { v4 as uuidv4 } from "uuid";
-import { arrayRange } from "@/helpers";
+import Link from "next/link";
 
+import { arrayRange } from "@/helpers";
 import useSize from "@/hooks/useSize";
 import { useCategoryStore, useSearchStore } from "@/lib/store";
+import { checkRoleClient } from "@/lib/api";
+import { ProjectType } from "@/types";
 
 import ProjectCard from "./ProjectCard";
-
-import { ProjectType } from "@/types";
 
 interface PropType {
   projects: ProjectType[];
@@ -39,6 +42,7 @@ const AllProjects = (props: PropType) => {
   const [pagination, setPagination] = useState<number[]>([]);
   const [avtivePag, setActivePag] = useState<number>(1);
   const [projectsPerPage, setProjectsPerPage] = useState<ProjectType[]>([]);
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
   const handleCountPages = () => {
     const pageCount = Math.ceil(projectSrc?.length / itemsPerPage);
@@ -52,6 +56,11 @@ const AllProjects = (props: PropType) => {
 
     const items = projectSrc?.slice(begin, end);
     setProjectsPerPage(items);
+  };
+
+  const handleCheckRole = async () => {
+    const isAdmin = await checkRoleClient("admin");
+    setIsAdmin(isAdmin);
   };
 
   useEffect(() => {
@@ -100,8 +109,24 @@ const AllProjects = (props: PropType) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchValue]);
 
+  useEffect(() => {
+    handleCheckRole();
+  }, []);
+
   return (
     <div className="mt-10">
+      {isAdmin && (
+        <div className="my-10 flex items-center justify-between">
+          <div></div>
+          <div>
+            <Link href="/create/project">
+              <Button>
+                <CirclePlus className="mr-2 h-4 w-4" /> Add new project
+              </Button>
+            </Link>
+          </div>
+        </div>
+      )}
       <div className="grid grid sm:grid-cols-2 md:grid-cols-3 gap-5">
         {projectsPerPage?.map((project: ProjectType) => {
           return <ProjectCard key={uuidv4()} project={project} />;

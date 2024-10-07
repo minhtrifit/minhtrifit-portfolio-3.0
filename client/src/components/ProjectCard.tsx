@@ -30,7 +30,7 @@ const ProjectCard = (props: PropType) => {
           alt="nav-logo"
         />
       </Link>
-      <CardContent className="mt-5 flex flex-col gap-3">
+      <CardContent className="mt-5 flex flex-col gap-3 hover:cursor-default">
         <h1 className="dark:text-primary-blue text-xl font-bold text-center truncate">
           {project?.name}
         </h1>

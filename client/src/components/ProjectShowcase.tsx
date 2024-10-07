@@ -17,6 +17,7 @@ import Empty from "./Empty";
 import { ProjectType } from "@/types";
 
 const ProjectShowcase = async () => {
+  const NUMBER_PER_PAGE = 5;
   const data = await getAllProjectsByReleased("desc");
 
   return (
@@ -38,7 +39,7 @@ const ProjectShowcase = async () => {
       ) : (
         <Carousel className="mx-auto mt-6 w-[80%] lg:w-[100%]">
           <CarouselContent>
-            {data?.map((project: ProjectType) => {
+            {data?.slice(0, NUMBER_PER_PAGE)?.map((project: ProjectType) => {
               return (
                 <CarouselItem
                   key={uuidv4()}

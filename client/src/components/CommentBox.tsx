@@ -69,22 +69,30 @@ const CommentBox = (props: Proptype) => {
 
   return (
     <form
-      className="my-10 flex flex-wrap gap-5"
+      className="my-10 flex flex-col gap-5"
       onSubmit={(e) => {
         handleSendComment(e);
       }}
     >
       <h1 className="dark:text-primary-blue font-bold">PROJECT COMMENT</h1>
-      <Textarea
-        placeholder="Type your comment here..."
-        value={value}
-        onChange={(e) => {
-          setValue(e.target.value);
-        }}
-      />
-      <div className="w-full flex justify-end">
-        <Button>Send</Button>
-      </div>
+      {!user ? (
+        <div className="flex items-center gap-3">
+          <span className="text-sm">Login to comment for this project.</span>
+        </div>
+      ) : (
+        <>
+          <Textarea
+            placeholder="Type your comment here..."
+            value={value}
+            onChange={(e) => {
+              setValue(e.target.value);
+            }}
+          />
+          <div className="w-full flex justify-end">
+            <Button>Send</Button>
+          </div>
+        </>
+      )}
     </form>
   );
 };

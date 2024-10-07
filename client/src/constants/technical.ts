@@ -65,3 +65,15 @@ export const TAILWIND_CSS: TechnicalType = {
   logo: "/technicals/tailwindcss.png",
   url: "https://tailwindcss.com",
 };
+
+export const HTML: TechnicalType = {
+  name: "HTML",
+  logo: "/technicals/html.png",
+  url: "https://www.w3schools.com/html",
+};
+
+export const CSS: TechnicalType = {
+  name: "CSS",
+  logo: "/technicals/css.png",
+  url: "https://www.w3schools.com/css",
+};
