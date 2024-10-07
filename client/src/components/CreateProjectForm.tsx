@@ -33,6 +33,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import VideoPlayer from "./VideoPlayer";
 
 import { cn } from "@/lib/utils";
 import { TECHNICALS } from "@/constants/technical";
@@ -63,6 +64,9 @@ const FormSchema = z.object({
     .max(100, {
       message: "Github must not be longer than 100 characters.",
     }),
+  demo: z.string().min(3, {
+    message: "Project demo must be at least 3 characters.",
+  }),
   released: z.date({
     required_error: "A date of release is required.",
   }),
@@ -91,6 +95,7 @@ const CreateProjectForm = (props: PropType) => {
     []
   );
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [demoLink, setDemoLink] = useState<string>("");
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -98,6 +103,7 @@ const CreateProjectForm = (props: PropType) => {
       name: "",
       description: "",
       github: "",
+      demo: "",
       technicals: [],
       categories: [],
     },
@@ -132,6 +138,7 @@ const CreateProjectForm = (props: PropType) => {
     form.reset();
     setSelectedTechnicals([]);
     setSelectedCategories([]);
+    setDemoLink("");
   };
 
   return (
@@ -180,6 +187,28 @@ const CreateProjectForm = (props: PropType) => {
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="demo"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Demo</FormLabel>
+              <FormControl>
+                <Input
+                  value={demoLink}
+                  onChange={(e) => {
+                    setDemoLink(e.target.value);
+                    field.onChange(e.target.value);
+                  }}
+                  placeholder="Project demo (recommend youtube link)"
+                  // {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        {demoLink !== "" && <VideoPlayer src={demoLink} />}
         <FormField
           control={form.control}
           name="released"
