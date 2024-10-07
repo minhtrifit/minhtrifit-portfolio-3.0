@@ -17,7 +17,7 @@ export default function RootLayout({
       {children}
       <div className="flex flex-col items-center gap-3">
         <h1 className="flex flex-wrap items-center gap-2 text-3xl font-bold">
-          Join <p className="text-primary-blue">minhtrifit</p> Gangs 🐱‍👤
+          Join <p className="text-primary-blue">minhtrifit</p> Gangs 🐱
         </h1>
         <SocialMedia />
         <Image

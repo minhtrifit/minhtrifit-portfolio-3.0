@@ -74,3 +74,34 @@
     @apply bg-background text-foreground;
   }
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  @apply bg-light-bg;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  @apply bg-zinc-500;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-zinc-400;
+}
+
+/* Dark mode scroll bar */
+.dark ::-webkit-scrollbar-thumb {
+  @apply bg-sky-500;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  @apply bg-sky-400;
+}
