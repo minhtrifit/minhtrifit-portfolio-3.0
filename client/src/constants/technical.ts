@@ -78,6 +78,12 @@ export const CSS: TechnicalType = {
   url: "https://www.w3schools.com/css",
 };
 
+export const MONGO: TechnicalType = {
+  name: "CSS",
+  logo: "/technicals/mongo.png",
+  url: "https://www.mongodb.com",
+};
+
 export const TECHNICALS = [
   NEXT_JS,
   REACT_JS,
@@ -92,4 +98,5 @@ export const TECHNICALS = [
   TAILWIND_CSS,
   HTML,
   CSS,
+  MONGO,
 ];

@@ -28,10 +28,10 @@ const ProjectCard = (props: PropType) => {
           sizes="100vw"
           width="0"
           height="0"
-          alt="nav-logo"
+          alt="project-logo"
         />
       </Link>
-      <CardContent className="mt-5 flex flex-col gap-3 hover:cursor-default">
+      <CardContent className="pt-5 flex flex-col gap-3 hover:cursor-default">
         <Link href={`/project/${project?.id}`}>
           <h1
             className="dark:text-primary-blue text-xl font-bold text-center truncate
@@ -52,9 +52,9 @@ const ProjectCard = (props: PropType) => {
             </p>
           )}
         </div>
-        <span className={`card-description text-sm`}>
+        <p className={`card-description mt-1 text-sm`}>
           {project?.description}
-        </span>
+        </p>
         <div className="flex items-center justify-end">
           <div
             className="text-[0.7rem] text-white font-bold bg-black dark:bg-sky-600 p-2 rounded-md

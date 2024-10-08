@@ -77,3 +77,9 @@ export const CSS: TechnicalType = {
   logo: '/technicals/css.png',
   url: 'https://www.w3schools.com/css',
 };
+
+export const MONGO: TechnicalType = {
+  name: 'CSS',
+  logo: '/technicals/mongo.png',
+  url: 'https://www.mongodb.com',
+};

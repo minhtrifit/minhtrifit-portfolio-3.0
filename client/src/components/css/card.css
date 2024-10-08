@@ -1,10 +1,8 @@
 .card-description {
-  height: 60px;
-  text-align: justify;
+  min-height: calc(1.5rem * 3);
+  line-height: 1.5rem;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* Number of lines to show */
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
-  hyphens: auto;
 }
