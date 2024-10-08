@@ -3,6 +3,7 @@ import Image from "next/image";
 
 import ProjectShowcase from "@/components/ProjectShowcase";
 import SocialMedia from "@/components/SocialMedia";
+import PoweredSlider from "@/components/PoweredSlider";
 
 const Home = async () => {
   return (
@@ -32,6 +33,9 @@ const Home = async () => {
       </section>
       <section className="mt-10">
         <ProjectShowcase />
+      </section>
+      <section className="mt-20">
+        <PoweredSlider />
       </section>
     </div>
   );

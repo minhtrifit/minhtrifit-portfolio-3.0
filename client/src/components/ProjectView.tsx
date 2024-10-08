@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { v4 as uuidv4 } from "uuid";
-import { Calendar, Github, Youtube } from "lucide-react";
+import { Github, Youtube, WalletCards } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -27,15 +27,19 @@ const ProjectView = (props: PropType) => {
       ) : (
         <div>
           <div className="flex flex-col gap-5">
-            <h1 className="text-3xl font-bold">{project?.name}</h1>
-            <p className="text-sm text-gray-500">{project?.description}</p>
+            <h1 className="text-3xl font-bold dark:text-sky-500">
+              {project?.name}
+            </h1>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              {project?.description}
+            </p>
             <div className="flex gap-2 items-center">
-              <p>Released</p>
-              <Calendar />
+              <p>Release date:</p>
               <p>{project?.released}</p>
             </div>
-            <p className="text-md text-red-500 font-bold">
-              Open source project
+            <p className="mt-3 text-xl font-bold flex items-center">
+              <WalletCards className="mr-2 w-6 h-6" />
+              Open source
             </p>
           </div>
           <div className="my-5 w-[100%] h-[1px] bg-zinc-300 dark:bg-primary-blue"></div>

@@ -19,8 +19,8 @@ const page = async () => {
         <SearchBox searchType="project" />
       </div>
       <ProjectTitle />
-      <p className="mt-3 text-gray-500 dark:text-gray-200 text-center">
-        minhtrifit open source project list.
+      <p className="mt-3 text-gray-500 dark:text-gray-400 text-center">
+        Workspace for showcasing my projects.
       </p>
       <Suspense fallback={<Loading />}>
         {!data ? (
